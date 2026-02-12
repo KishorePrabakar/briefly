@@ -1,0 +1,33 @@
+{
+  "name": "briefly",
+  "version": "1.0.0",
+  "description": "Paste your meeting notes → instantly get a short summary, action items, and key decisions using AI.",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "concurrently \"nodemon server.js\" \"cd client && npm run dev\"",
+    "client": "cd client && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KishorePrabakar/briefly.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KishorePrabakar/briefly/issues"
+  },
+  "homepage": "https://github.com/KishorePrabakar/briefly#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.7.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.7"
+  }
+}
