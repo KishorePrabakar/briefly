@@ -32,58 +32,82 @@ body {
   line-height: 1.5;
 }
 
-/* Main container - tighter max-width for better readability */
+/* Main container - GitHub-like max-width (centered content) */
 .app-container {
-  max-width: 880px;           /* ← was 960px, tighter like GitHub code views */
+  max-width: 1280px;          /* GitHub uses ~1280px container */
   margin: 0 auto;
-  padding: 2rem 1.5rem;      /* ← more side padding on mobile */
+  padding: 0 1.5rem;          /* Side padding like GitHub */
 }
 
-/* Header - full width, subtle border */
+/* Header - full width, border bottom, centered title */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 0;
-  margin-bottom: 2rem;
   border-bottom: 1px solid var(--border);
+  max-width: 1024px;          /* ← Header content narrower */
+  margin: 0 auto;
 }
 
-/* New: Centers main content vertically and horizontally */
+h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Theme toggle - subtle */
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.theme-toggle:hover {
+  background: var(--bg-alt);
+  color: var(--text);
+}
+
 .content-wrapper {
   display: flex;
   justify-content: center;
   width: 100%;
+  max-width: 1100px;          /* ← NEW: Caps the entire content area (GitHub-like) */
+  margin: 0 auto;             /* ← Centers it */
+  padding: 2rem 0;
 }
 
-/* Main content card - full width inside wrapper */
+/* Main card - GitHub repo-like width & padding */
 .main-content {
-  width: 100%;
-  max-width: 780px;           /* ← inner content narrower than container */
+  width: 100%;               
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 2.5rem;            /* ← more internal breathing room */
+  padding: 2.5rem 3rem;
 }
-
-/* Heading & subtitle alignment */
+/* Headings & subtitle */
 h2 {
-  font-size: 1.9rem;
+  font-size: 2rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  text-align: left;
+  text-align: center;         /* ← Centered like many GitHub sections */
 }
 
 .subtitle {
   color: var(--text-muted);
-  margin-bottom: 1.75rem;
-  font-size: 1.05rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
 }
 
-/* Textarea - full width, better focus */
+/* Textarea - full width inside card */
 .textarea {
   width: 100%;
-  min-height: 180px;
+  min-height: 200px;          /* Slightly taller for better feel */
   padding: 1.25rem;
   font-size: 1.05rem;
   background: var(--bg);
@@ -91,96 +115,38 @@ h2 {
   border: 1px solid var(--border);
   border-radius: 6px;
   resize: vertical;
-  font-family: inherit;
 }
 
-.textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(53, 140, 255, 0.15);
-}
-
-/* Button centered + full-width on mobile */
+/* Button wrapper - centered */
 .button-wrapper {
   display: flex;
   justify-content: center;
-  margin: 1.75rem 0;
+  margin: 2rem 0;
 }
 
-.btn {
-  padding: 0.85rem 2rem;
-  font-size: 1.05rem;
-  font-weight: 500;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
-  min-width: 180px;
+.btn.primary {
+  min-width: 220px;
+  padding: 0.9rem 2rem;
 }
 
-.primary {
-  background: var(--accent);
-  color: white;
-}
-
-.primary:hover:not(:disabled) {
-  background: var(--accent-hover);
-}
-
-/* Error & Result - same width as textarea */
-.error, .result {
-  margin-top: 1.5rem;
-  padding: 1.25rem;
-  border-radius: 6px;
-}
-
-.error {
-  background: rgba(248, 81, 73, 0.1);
-  border: 1px solid var(--error);
-  color: var(--error);
-}
-
+/* Result - same width as textarea */
 .result {
+  margin-top: 3rem;
+  padding: 2rem;
   background: var(--bg-alt);
   border: 1px solid var(--border);
+  border-radius: 6px;
 }
 
-.result h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: var(--text);
+.app-container {
+  margin: 0 auto;
+  padding: 0 1rem;            /* Just small side padding */
 }
 
-/* Markdown improvements */
-.markdown-body {
-  font-size: 1.05rem;
-  line-height: 1.7;
-}
-
-.markdown-body h3 {
-  font-size: 1.35rem;
-  margin: 2rem 0 1rem;
-  color: var(--accent);
-}
-
-.markdown-body ul {
-  padding-left: 1.8rem;
-  margin: 1rem 0;
-}
-
-.markdown-body li {
-  margin-bottom: 0.6rem;
-}
-
-/* Mobile adjustments */
+/* Responsive - stack nicely on small screens */
 @media (max-width: 768px) {
-  .app-container {
-    padding: 1.5rem 1rem;
-  }
-  .main-content {
-    padding: 2rem 1.5rem;
-  }
-  .btn {
-    width: 100%;
-  }
+  .app-container { padding: 1rem; }
+  .main-content { padding: 1.8rem 1.5rem; }
+  h2 { font-size: 1.6rem; }
+  .button-wrapper .btn { width: 100%; }
 }

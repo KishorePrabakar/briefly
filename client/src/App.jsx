@@ -55,7 +55,7 @@ return (
       </button>
     </header>
 
-    <div className="content-wrapper">  {/* ← New wrapper for centering */}
+    <div className="content-wrapper">
       <main className="main-content">
         <h2>AI Meeting Assistant</h2>
         <p className="subtitle">Paste your meeting notes or transcript below:</p>
