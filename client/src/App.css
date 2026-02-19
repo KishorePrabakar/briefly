@@ -170,3 +170,52 @@ h2 {
   h2 { font-size: 1.6rem; }
   .button-wrapper .btn { width: 100%; }
 }
+
+.history-section {
+  margin-bottom: 2rem;
+}
+
+.history-toggle {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.history-list {
+  margin-top: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--card-bg);
+}
+
+.history-item {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.history-item:hover {
+  background: var(--bg-alt);
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-item small {
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.history-item p {
+  margin: 0;
+  font-size: 0.95rem;
+}
