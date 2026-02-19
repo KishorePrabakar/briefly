@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
 import './App.css'
-import { text } from 'express';
 
 function App() {
   const [notes, setNotes] = useState('');
@@ -14,7 +13,7 @@ function App() {
     try{
       const response = await axios.post('/api/summarize', { text: notes });
       setSummary(response.data.summary || 'Summary Recieved');
-      console.log('Notes send' || {text : notes});
+      console.log('Notes recieved' || {text : notes});
     }catch (error){
       console.error('Error sending to backend:', error);
       setSummary('Error: Could not get summary');

@@ -11,21 +11,13 @@ app.get('/api/health', (req, res) => {
 });
 
 app.post('/api/summarize', (req, res) => {
-  console.log('POST /api/summarize received → body:', req.body); // ← debug log
-
-  const { meetingText } = req.body;
-
-  if (!meetingText) {
-    return res.status(400).json({ error: 'meetingText is required' });
+  console.log('POST /api/summarize received → body:', req.body);
+  const { text } = req.body;
+  if (!text || typeof text !== 'string' || text.trim() === '') {
+    return res.status(400).json({ error: 'Missing or invalid "text" field' });
   }
-
-  const result = {
-    summary: 'Dummy summary of the meeting.',
-    action_items: ['Action 1', 'Action 2'],
-    key_decisions: ['Decision A', 'Decision B']
-  };
-
-  res.json(result);
+  // ... rest (dummy or AI)
+  res.json({ summary: `Processed: ${text}` }); // or AI call
 });
 
 app.use((req, res) => {
