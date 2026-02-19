@@ -82,11 +82,23 @@ return (
 
         {result && (
           <div className="result">
-            <h3>Summary</h3>
-            <div className="markdown-body">
-              <ReactMarkdown>{result}</ReactMarkdown>
+            <div className="result-header">
+                <h3>Summary</h3>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(result)
+                      .then(() => alert('Summary copied to clipboard!'))
+                      .catch(() => alert('Failed to copy — please select and copy manually.'));
+                  }}
+                  className="btn secondary"
+                >
+                  Copy
+                </button>
+              </div>
+              <div className="markdown-body">
+                <ReactMarkdown>{result}</ReactMarkdown>
+              </div>
             </div>
-          </div>
         )}
       </main>
     </div>

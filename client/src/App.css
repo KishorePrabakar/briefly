@@ -129,6 +129,19 @@ h2 {
   padding: 0.9rem 2rem;
 }
 
+.btn.secondary {
+  background: var(--bg-alt);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.btn.secondary:hover {
+  background: var(--accent-hover);
+  color: white;
+}
+
 /* Result - same width as textarea */
 .result {
   margin-top: 3rem;
@@ -136,6 +149,13 @@ h2 {
   background: var(--bg-alt);
   border: 1px solid var(--border);
   border-radius: 6px;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .app-container {
