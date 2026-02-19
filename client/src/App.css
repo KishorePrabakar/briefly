@@ -1,3 +1,10 @@
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  background: #f8f9fa !important; /* light background */
+  color: #333;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
