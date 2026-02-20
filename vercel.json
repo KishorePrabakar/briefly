@@ -1,31 +1,10 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "client/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "client/dist",
-        "buildCommand": "npm run build"
-      }
-    },
-    {
-      "src": "api/index.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/.*",
-      "dest": "api/index.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "client/dist/$1"
-    }
-  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "client/dist",
   "env": {
     "GROQ_API_KEY": "@groq_api_key",
     "MONGODB_URI": "@mongodb_uri"
   }
 }
+
