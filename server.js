@@ -22,9 +22,31 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Backend alive', env: process.env.NODE_ENV });
 });
 
-// Your summarize route (unchanged)
 app.post('/api/summarize', async (req, res) => {
-  // ... your existing code ...
+  try {
+    const { text } = req.body;
+    
+    if (!text || !text.trim()) {
+      return res.status(400).json({ error: 'No text provided' });
+    }
+
+    const message = await groq.messages.create({
+      model: 'mixtral-8x7b-32768',
+      max_tokens: 1024,
+      messages: [
+        {
+          role: 'user',
+          content: `Summarize the following meeting notes and extract action items:\n\n${text}`
+        }
+      ]
+    });
+
+    const summary = message.content[0].type === 'text' ? message.content[0].text : '';
+    res.json({ summary });
+  } catch (error) {
+    console.error('Summarize error:', error);
+    res.status(500).json({ error: 'Failed to summarize' });
+  }
 });
 
 // 404 handler - make it log too
@@ -51,8 +73,14 @@ if (process.env.NODE_ENV === 'production') {
       }
     });
   });
-} else {
-  console.log('[Dev] Skipping static serving - assuming separate frontend server');
+}
+
+// Start server for local development
+if (!process.env.VERCEL) {
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+  });
 }
 
 module.exports = app;
