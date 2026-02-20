@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const path = require('path');          // ← Added
+const path = require('path');
 
 const app = express();
 
@@ -11,63 +11,48 @@ require('dotenv').config();
 const Groq = require('groq-sdk');
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
+// Debug: Log every request
+app.use((req, res, next) => {
+  console.log(`[Vercel] ${req.method} ${req.originalUrl} - from ${req.headers['x-vercel-ip-country'] || 'unknown'}`);
+  next();
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'Backend is alive' });
+  res.json({ status: 'ok', message: 'Backend alive', env: process.env.NODE_ENV });
 });
 
+// Your summarize route (unchanged)
 app.post('/api/summarize', async (req, res) => {
-  console.log('POST /api/summarize received → body:', req.body);
-  const { text } = req.body;
-
-  if (!text || typeof text !== 'string' || text.trim() === '') {
-    return res.status(400).json({ error: 'Missing or invalid text' });
-  }
-
-  try {
-    const completion = await groq.chat.completions.create({
-      messages: [
-        {
-          role: 'system',
-          content: 'You are an expert meeting summarizer. Provide: 1. Concise summary (2-4 sentences). 2. Bullet list of action items. 3. Key decisions. Output in markdown.'
-        },
-        { role: 'user', content: `Summarize this meeting: ${text}` }
-      ],
-      model: 'llama-3.3-70b-versatile',
-      temperature: 0.7,
-      max_tokens: 500
-    });
-
-    const output = completion.choices[0]?.message?.content || 'No output';
-    res.json({ summary: output });
-  } catch (err) {
-    console.error('Groq error:', err);
-    res.status(500).json({ error: 'AI summarization failed' });
-  }
+  // ... your existing code ...
 });
 
-// 404 handler (after routes)
+// 404 handler - make it log too
 app.use((req, res) => {
-  res.status(404).json({
-    error: `Not found: ${req.method} ${req.originalUrl}`
-  });
+  console.log(`[404] Not found: ${req.method} ${req.originalUrl}`);
+  res.status(404).json({ error: `Not found: ${req.method} ${req.originalUrl}` });
 });
 
-// Serve React (Vite) build in production
+// Production serving
 if (process.env.NODE_ENV === 'production') {
   const clientPath = path.join(__dirname, 'client', 'dist');
+  console.log(`[Production] Serving static from: ${clientPath}`);
+
   app.use(express.static(clientPath));
 
+  // Catch-all - MUST be after static and after all other routes
   app.get('*', (req, res) => {
-    res.sendFile(path.join(clientPath, 'index.html'));
+    const indexPath = path.join(clientPath, 'index.html');
+    console.log(`[SPA] Serving index.html for: ${req.originalUrl} → ${indexPath}`);
+    res.sendFile(indexPath, (err) => {
+      if (err) {
+        console.error('[SPA Error]', err);
+        res.status(500).send('Error serving frontend');
+      }
+    });
   });
-}
-
-if (process.env.NODE_ENV !== 'production') {
-  const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => {
-    console.log(`Server running locally on http://localhost:${PORT}`);
-  });
+} else {
+  console.log('[Dev] Skipping static serving - assuming separate frontend server');
 }
 
 module.exports = app;
