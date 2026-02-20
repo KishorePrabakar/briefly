@@ -1,10 +1,7 @@
 {
   "version": 2,
   "buildCommand": "npm run build",
-  "outputDirectory": "client/dist",
-  "env": {
-    "GROQ_API_KEY": "@groq_api_key",
-    "MONGODB_URI": "@mongodb_uri"
-  }
+  "outputDirectory": "client/dist"
 }
+
 
