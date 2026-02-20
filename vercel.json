@@ -6,7 +6,7 @@
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist",
-        "buildCommand": "npm run build"
+        "buildCommand": "cd client && npm install && npm run build"
       }
     },
     {
@@ -17,11 +17,14 @@
   "routes": [
     {
       "src": "/api/.*",
-      "dest": "/server.js"
+      "dest": "server.js"
+    },
+    {
+      "handle": "filesystem"
     },
     {
       "src": "/.*",
-      "dest": "/server.js"
+      "dest": "server.js"
     }
   ]
 }
