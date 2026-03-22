@@ -1,21 +1,9 @@
-# Briefly – AI Meeting Assistant
+# Briefy - Live Meeting Transcript Generator and Summariser
 
-Paste your meeting notes → instantly get a short summary, action items, and key decisions using AI.
+## To-do
 
-## Features
-- Input: raw meeting text
-- Output: summary + action items + key decisions
-- Saves results in MongoDB
-
-## Tech Stack
-- Frontend: React
-- Backend: Node.js + Express
-- Database: MongoDB
-- AI: OpenAI API
-
-## Quick Start
-
-1. Clone the repo
-```bash
-git clone https://github.com/KishorePrabakar/briefly.git
-cd briefly
+1. Generate transcripts for web audio
+2. Convert transcripts to Summaries
+3. Get action items and to do from summaries
+4. Add user authentication
+5. Save old meeting summaries
